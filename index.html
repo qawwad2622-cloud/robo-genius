@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROBO GENIUS - مهندس الروبوتات الذكي</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080e1c;
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(120deg,#111d36,#153c65);
+    padding: 25px 15px;
+    text-align: center;
+    border-bottom: 2px solid #00d9ff;
+}
+
+.logo {
+    font-size: 35px;
+    color: #00d9ff;
+    font-weight: bold;
+}
+
+header p {
+    color: #bdcce0;
+    margin-top: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+.panel {
+    background: #111c30;
+    border: 1px solid #263e5c;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #00d9ff;
+    margin-bottom: 15px;
+}
+
+textarea, select, input {
+    width: 100%;
+    background: #081426;
+    border: 1px solid #345475;
+    border-radius: 9px;
+    padding: 14px;
+    color: white;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+button {
+    background: linear-gradient(120deg,#008cff,#00d9ff);
+    color: #00101e;
+    font-weight: bold;
+    border: none;
+    border-radius: 9px;
+    padding: 14px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+button:hover {
+    opacity: .85;
+}
+
+.result {
+    display: none;
+}
+
+.result h3 {
+    color: #00d9ff;
+    margin: 20px 0 10px;
+}
+
+.result p, .result li {
+    line-height: 1.9;
+    color: #d5e2f2;
+}
+
+.result ul, .result ol {
+    padding-right: 25px;
+}
+
+.item {
+    background: #0a172a;
+    border-right: 3px solid #00d9ff;
+    padding: 13px;
+    border-radius: 7px;
+    margin: 10px 0;
+}
+
+.item a {
+    color: #00d9ff;
+}
+
+.code {
+    background: #050b14;
+    padding: 15px;
+    border-radius: 8px;
+    direction: ltr;
+    text-align: left;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    color: #80ffb5;
+    font-family: monospace;
+    margin-top: 10px;
+}
+
+.copy {
+    background: #176b53;
+    color: white;
+}
+
+.small {
+    color: #8da7c5;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #7790ae;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🤖 ROBO GENIUS</div>
+    <h2 style="color:white;margin-top:10px">
+        مهندس الروبوتات الذكي
+    </h2>
+    <p>من مجرد فكرة إلى مشروع روبوت متكامل</p>
+</header>
+
+<div class="container">
+
+    <div class="panel">
+        <h2>🧠 أخبرني عن الروبوت الذي تريد صنعه</h2>
+
+        <textarea id="idea"
+        placeholder="مثلاً: أريد صناعة روبوت يمشي على قدمين، يتكلم معي، يتعرف على الأشخاص ويتحرك داخل المنزل..."></textarea>
+
+        <h3>مستواك في صناعة الروبوتات</h3>
+        <select id="level">
+            <option value="مبتدئ">مبتدئ - لا أعرف شيئاً</option>
+            <option value="متوسط">متوسط - أعرف الأساسيات</option>
+            <option value="متقدم">متقدم - لدي خبرة</option>
+        </select>
+
+        <h3>ميزانية المشروع</h3>
+        <input type="number" id="budget"
+        placeholder="مثلاً: 100 دينار أردني">
+
+        <h3>نوع الروبوت</h3>
+        <select id="type">
+            <option>اختر النوع</option>
+            <option>روبوت منزلي</option>
+            <option>روبوت بشري</option>
+            <option>روبوت متحرك</option>
+            <option>روبوت ذكي بالذكاء الاصطناعي</option>
+            <option>روبوت صناعي</option>
+            <option>روبوت تعليمي</option>
+            <option>روبوت من تصميمي الخاص</option>
+        </select>
+
+        <button onclick="buildRobot()">
+            🚀 حلّل فكرتي وابدأ بناء المشروع
+        </button>
+    </div>
+
+    <div class="panel result" id="result">
+
+        <h2>📋 مخطط مشروع الروبوت</h2>
+
+        <div id="overview"></div>
+
+        <h3>1. 🧰 الأدوات والقطع المطلوبة</h3>
+        <div id="parts"></div>
+
+        <h3>2. 🛒 أين أجد القطع؟</h3>
+        <div id="shopping"></div>
+
+        <h3>3. 🔨 خطوات التصنيع</h3>
+        <div id="steps"></div>
+
+        <h3>4. 💻 البرمجة والتحكم</h3>
+        <div id="programming"></div>
+
+        <h3>5. 🧪 الاختبار والتشغيل</h3>
+        <div id="testing"></div>
+
+        <h3>6. 💰 الميزانية التقديرية</h3>
+        <div id="cost"></div>
+
+        <h3>7. 🚀 تطوير الروبوت مستقبلاً</h3>
+        <div id="future"></div>
+
+    </div>
+
+    <div class="panel">
+        <h2>🛠️ أدوات المهندس</h2>
+
+        <button onclick="showCode('arduino')">
+            Arduino - نموذج برمجي
+        </button>
+
+        <button onclick="showCode('motor')">
+            التحكم بالمحركات
+        </button>
+
+        <button onclick="showCode('sensor')">
+            قراءة حساس المسافة
+        </button>
+
+        <div id="toolCode"></div>
+    </div>
+
+    <div class="panel">
+        <h2>💡 أفكار لمشاريع روبوتات</h2>
+
+        <div class="item">🤖 روبوت يمشي ويتحدث</div>
+        <div class="item">🏠 روبوت مساعد منزلي</div>
+        <div class="item">🚗 سيارة روبوتية ذاتية الحركة في بيئة تجريبية</div>
+        <div class="item">🦾 ذراع روبوتية ذكية</div>
+        <div class="item">🐕 روبوت يشبه الحيوان الأليف</div>
+        <div class="item">🧠 روبوت يتعرف على الأشياء</div>
+        <div class="item">📦 روبوت ينقل الأشياء الخفيفة</div>
+    </div>
+
+</div>
+
+<footer>
+    ROBO GENIUS © 2026
+    <p>من الفكرة إلى الابتكار 🤖</p>
+</footer>
+
+<script>
+
+function buildRobot() {
+
+    const idea = document.getElementById("idea").value.trim();
+    const level = document.getElementById("level").value;
+    const budget = document.getElementById("budget").value;
+    const type = document.getElementById("type").value;
+
+    if (!idea) {
+        alert("اكتب فكرة الروبوت أولاً!");
+        return;
+    }
+
+    const dangerous = [
+        "سلاح", "مسدس", "بندقية", "قنبلة",
+        "متفجرات", "قتل", "إطلاق النار",
+        "صاروخ هجومي", "تفجير"
+    ];
+
+    if (dangerous.some(word => idea.includes(word))) {
+        alert("يمكنني مساعدتك في تصميم روبوتات تعليمية وخدمية وآمنة، وليس روبوتات للأسلحة أو الإيذاء.");
+        return;
+    }
+
+    const isWalking = /يمشي|أقدام|قدمين|رجلين|بشري/.test(idea);
+    const isTalking = /يتكلم|يتحدث|صوت|محادث/.test(idea);
+    const isMoving = /يتحرك|يمشي|سيارة|عجلات|ينقل/.test(idea);
+    const isSmart = /ذكاء|ذكي|يتعرف|كاميرا|رؤية/.test(idea);
+
+    let parts = [
+        "لوحة تحكم Arduino أو ESP32",
+        "أسلاك توصيل كهربائية",
+        "مصدر طاقة مناسب",
+        "هيكل لتثبيت القطع",
+        "مفتاح تشغيل وإيقاف",
+        "لوحة تجارب إلكترونية"
+    ];
+
+    if (isWalking) {
+        parts.push("محركات سيرفو مناسبة للمفاصل");
+        parts.push("هيكل ميكانيكي للأرجل");
+    }
+
+    if (isMoving && !isWalking) {
+        parts.push("محركات DC");
+        parts.push("عجلات");
+        parts.push("دائرة قيادة محركات مناسبة");
+    }
+
+    if (isTalking) {
+        parts.push("وحدة صوت أو مكبر صوت");
+        parts.push("ميكروفون");
+    }
+
+    if (isSmart) {
+        parts.push("كاميرا أو حساس مناسب");
+        parts.push("وحدة معالجة قادرة على تشغيل نظام التعرف المطلوب");
+    }
+
+    document.getElementById("overview").innerHTML =
+        `<div class="item">
+        <b>فكرتك:</b> ${escapeHTML(idea)}<br>
+        <b>مستواك:</b> ${level}<br>
+        <b>نوع المشروع:</b> ${escapeHTML(type)}<br>
+        <b>الميزانية:</b> ${budget ? escapeHTML(budget) + " دينار" : "لم تحدد بعد"}
+        </div>
+        <p>هذه خطة أولية مبنية على الكلمات والخصائص التي ذكرتها، وليست تحليلاً هندسياً نهائياً.</p>`;
+
+    document.getElementById("parts").innerHTML =
+        parts.map(p => `<div class="item">✓ ${p}</div>`).join("");
+
+    document.getElementById("shopping").innerHTML =
+        parts.map(p => `
+        <div class="item">
+        ${p}<br>
+        <a target="_blank" rel="noopener"
+        href="https://www.google.com/search?q=${encodeURIComponent(p + " الأردن")}" >
+        🔎 ابحث عن القطعة في الأردن
+        </a>
+        </div>
+        `).join("");
+
+    let steps = [
+        "ارسم شكلاً أولياً للروبوت وحدد أبعاده.",
+        "حدد وظائف الروبوت الأساسية.",
+        "اختر لوحة التحكم المناسبة.",
+        "جهّز الهيكل وثبّت القطع الميكانيكية.",
+        "وصل الحساسات والمحركات وفق مخطط الشركة المصنعة.",
+        "اختبر كل جزء بشكل منفصل.",
+        "اربط المكونات بالبرنامج.",
+        "اختبر الروبوت في بيئة آمنة وعدّل التصميم."
+    ];
+
+    if (isWalking) {
+        steps.splice(3, 0,
+        "صمم الأرجل والمفاصل باستخدام نموذج تجريبي صغير.",
+        "اختبر حركة كل مفصل على حدة قبل محاولة المشي.");
+    }
+
+    document.getElementById("steps").innerHTML =
+        "<ol>" + steps.map(s => `<li>${s}</li>`).join("") + "</ol>";
+
+    document.getElementById("programming").innerHTML = `
+        <div class="item">
+        <b>منصة مقترحة:</b> Arduino IDE<br>
+        <b>لغة البرمجة:</b> C++<br>
+        <b>لوحة التحكم:</b> Arduino أو ESP32 حسب احتياجات المشروع.
+        </div>
+        <p>يمكن إعداد برنامج خاص بالمحركات والحساسات بعد تحديد موديل القطع وأرقام أطراف التوصيل.</p>
+        <div class="code">${getBasicCode()}</div>
+        <button class="copy" onclick="copyCode()">نسخ الكود</button>
+    `;
+
+    document.getElementById("testing").innerHTML = `
+        <ul>
+        <li>فحص التوصيلات قبل توصيل الطاقة.</li>
+        <li>اختبار الحساسات بشكل منفصل.</li>
+        <li>اختبار المحركات بسرعة منخفضة.</li>
+        <li>التأكد من ثبات الهيكل.</li>
+        <li>اختبار وظائف الروبوت تدريجياً.</li>
+        </ul>
+    `;
+
+    document.getElementById("cost").innerHTML =
+        budget
+        ? `ميزانيتك المحددة ${escapeHTML(budget)} دينار أردني. يجب مقارنة أسعار القطع الفعلية قبل اعتماد التصميم.`
+        : "حدد ميزانيتك أولاً حتى يمكن إعداد قائمة أسعار مناسبة.";
+
+    document.getElementById("future").innerHTML = `
+        <ul>
+        <li>إضافة وظائف جديدة.</li>
+        <li>إضافة اتصال لاسلكي.</li>
+        <li>تطوير نظام التحكم.</li>
+        <li>إضافة واجهة تحكم على الهاتف.</li>
+        <li>إضافة الذكاء الاصطناعي عند توفر منصة معالجة مناسبة.</li>
+        </ul>
+    `;
+
+    document.getElementById("result").style.display = "block";
+    document.getElementById("result").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+    })[char]);
+}
+
+function getBasicCode() {
+    return `void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println("Robot is working");
+  delay(1000);
+}`;
+}
+
+function copyCode() {
+    navigator.clipboard.writeText(getBasicCode())
+    .then(() => alert("تم نسخ الكود!"))
+    .catch(() => alert("تعذر النسخ."));
+}
+
+function showCode(type) {
+
+    let codes = {
+
+        arduino: `void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println("Hello Robot!");
+  delay(1000);
+}`,
+
+        motor: `// نموذج تحكم بمحرك باستخدام درايفر مناسب
+int motorPin = 5;
+
+void setup() {
+  pinMode(motorPin, OUTPUT);
+}
+
+void loop() {
+  analogWrite(motorPin, 100);
+  delay(2000);
+
+  analogWrite(motorPin, 0);
+  delay(1000);
+}`,
+
+        sensor: `// حساس HC-SR04
+int trig = 9;
+int echo = 10;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
+}
+
+void loop() {
+  digitalWrite(trig, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+
+  long duration = pulseIn(echo, HIGH, 30000);
+
+  if (duration > 0) {
+    float distance = duration * 0.0343 / 2;
+    Serial.println(distance);
+  }
+
+  delay(500);
+}`
+    };
+
+    document.getElementById("toolCode").innerHTML = `
+        <div class="code" id="selectedCode">${codes[type]}</div>
+        <button class="copy" onclick="copySelected()">
+        نسخ الكود
+        </button>
+    `;
+}
+
+function copySelected() {
+    const code = document.getElementById("selectedCode").innerText;
+    navigator.clipboard.writeText(code)
+    .then(() => alert("تم نسخ الكود!"))
+    .catch(() => alert("تعذر النسخ."));
+}
+
+</script>
+
+</body>
+                                </html>
